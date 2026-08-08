@@ -43,6 +43,23 @@ int main()
         return 1;
     }
 
+    char message[1024];
+
+    while (1)
+    {
+        printf("Enter message to send to server: ");
+        if (fgets(message, sizeof(message), stdin) == NULL)
+            break;
+
+        send(sock_fd, message, strlen(message), 0);
+
+        printf("Message sent to server: %s", message);
+        if (strcmp(message, "exit\n") == 0)
+        {
+            break;
+        }
+    }
+
     printf("Connected to server %s:%d\n", SERVER_IP, PORT);
     close(sock_fd);
     return 0;
